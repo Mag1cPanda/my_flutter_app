@@ -336,10 +336,7 @@ class _HomepageState extends State<Homepage> {
   void loadData_dio_newOptionSetting() async {
     debugPrint(' \n======================= 开始请求 =======================\n');
     var headers = Map<String, String>();
-    headers['loginSource'] = 'IOS';
-    headers['useVersion'] = '3.1.0';
-    headers['isEncoded'] = '1';
-    headers['bundleId'] = 'com.nongfadai.iospro';
+    headers["App-Version"] = "78";
     headers['Content-Type'] = 'application/json';
 
     Options option = Options(method: 'post');
@@ -348,12 +345,11 @@ class _HomepageState extends State<Homepage> {
     option.headers.addAll(headers);
 
     Dio dio = Dio();
-    dio.options.baseUrl = njqbaseUrl;
+    dio.options.baseUrl = bbBaseUrl;
 
-    Response response = await dio.post(homeRegularListUrl,
-        data: {"currentPage": 1}, options: option);
-    // Response response = await dio.request(homeRegularListUrl,
-    // data: {"currentPage": 1}, options: option);
+    var url = bbContext + getExamSubject + suffix;
+    Response response = await dio.post(url,
+        data: {'cardno': '42100419920521421X'}, options: option);
 
     if (response.statusCode == HttpStatus.ok) {
       debugPrint('请求参数： ${response.request.queryParameters}');
